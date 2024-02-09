@@ -1,31 +1,17 @@
 <?php
 
-
-
 namespace App\Controllers;
 
-
-
 use Carbon;
-
 use CodeIgniter\API\ResponseTrait;
-
 use App\Controllers\BaseController;
 
 
-
-
-
 class NewsController extends BaseController
-
 {
 
     use ResponseTrait;
-
-
-
     public function getNews()
-
     {
 
         $page = $this->request->getVar('page');
@@ -45,69 +31,37 @@ class NewsController extends BaseController
             }
         }
 
-
-
-
-
         $sql .= " ORDER BY `published_at` desc";
-
         if ($page == 0 || $page == '') {
-
             $sql .= " LIMIT 5 ";
         } else {
-
             $sql .= " LIMIT " . $page . ", 5 ";
         }
 
-
-
         $query = $db->query($sql);
-
         $return = $query->getResultArray();
 
-
-
         $data = [];
-
         $x = 0;
 
         foreach ($return as $rows) {
-
             $imageUrl = $this->getImage($rows['image'], $rows['id']);
-
             $data[$x]['id'] = $rows['id'];
-
             $data[$x]['image'] = $imageUrl;
-
             $data[$x]['slug'] = $rows['slug'];
-
             $data[$x]['author'] = $rows['author'];
-
             $data[$x]['authorimg'] = 'https://www.mediaoto.id/images/' . $rows['authorimg'];
-
             $data[$x]['title'] = $rows['title'];
-
             $data[$x]['source'] = strtoupper($rows['source']);
-
             $data[$x]['description'] = $rows['description'];
-
             $data[$x]['pulished_str'] = $this->time_elapsed_string($rows['published_at']);
-
             $data[$x]['pulished_at'] = $rows['published_at'];
-
             $data[$x]['content'] = '';
-
             $x++;
         }
 
-
-
-
-
         //array_walk_recursive($data,function(&$item){$item=strval($item);});
-
         $response = json_encode($data);
-
         return $this->respond($response, 200);
     }
 
@@ -204,7 +158,7 @@ class NewsController extends BaseController
             $content = $rows['content'];
             // Replace Image
 
-            $content = str_replace('<img src="/images','<img src="https://www.mediaoto.id/images', $content);
+            $content = str_replace('<img src="/images', '<img src="https://www.mediaoto.id/images', $content);
             $data[$x]['content'] = $content;
 
 
