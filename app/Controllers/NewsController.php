@@ -158,7 +158,7 @@ class NewsController extends BaseController
             $content = $rows['content'];
             // Replace Image
 
-            $content = str_replace('<img src="/images', '<img src="https://www.mediaoto.id/images', $content);
+            $content = str_replace('src="/images', 'src="https://www.mediaoto.id/images', $content);
             $data[$x]['content'] = $content;
 
 
