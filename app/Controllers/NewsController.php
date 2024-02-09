@@ -160,7 +160,7 @@ class NewsController extends BaseController
 
             $content = str_replace('src="/images', 'src="https://www.mediaoto.id/images', $content);
 
-            $content = str_replace('<p', '<p style="justify-center; text-justify: inter-word;"', $content);
+            $content = str_replace('<p', '<p  align="justify"', $content);
 
             $data[$x]['content'] = $content;
 
