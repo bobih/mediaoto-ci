@@ -1,0 +1,45 @@
+[22-Nov-2023 22:04:49 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/public_html/../app/Config/Paths.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 34
+[22-Nov-2023 22:04:49 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/public_html/../app/Config/Paths.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 34
+[22-Nov-2023 22:04:51 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/public_html/../app/Config/Paths.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 34
+[22-Nov-2023 22:04:51 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/public_html/../app/Config/Paths.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 34
+[22-Nov-2023 22:48:21 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:48:21 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:48:23 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:48:23 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:49:21 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:49:21 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:50:38 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:50:38 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:50:40 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:50:40 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:52:08 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:52:08 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:52:12 Asia/Jakarta] PHP Warning:  require(/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php): Failed to open stream: No such file or directory in /DATA/mediaoto/public_html/index.php on line 40
+[22-Nov-2023 22:52:12 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/DATA/mediaoto/mediaoto.id/app/Config/../../vendor/codeigniter4/framework/system/bootstrap.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /DATA/mediaoto/public_html/index.php:40
+Stack trace:
+#0 {main}
+  thrown in /DATA/mediaoto/public_html/index.php on line 40
