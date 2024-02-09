@@ -23,7 +23,7 @@ class DeliveryController extends BaseController
     $db = db_connect();
     $userModel = new UserModel();
     $debug = true;
-    $userid = 120;
+    $userid = 36;
     //$userid = 36;
     $requestDate = '2024-12-30'; // Request DATA
     $tanggal = '2024-02-06'; //'2023-12-18';
