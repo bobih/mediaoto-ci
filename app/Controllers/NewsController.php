@@ -86,9 +86,12 @@ class NewsController extends BaseController
 
             $query = $db->query($sql)->getRow();
 
+            // Url = 42/conversions/01HPHDA7M34J3FT40N7DCN02TY-webpthumbnomark.webp
+            //
 
+            $arrImage = explode(".", $query->file_name);
 
-            return "https://www.mediaoto.id/images/" . $query->id . "/" . $query->file_name;
+            return "https://www.mediaoto.id/images/" . $query->id . "/conversions/" . $arrImage[0] . "-webpthumbnomark.webp";
         }
     }
 
