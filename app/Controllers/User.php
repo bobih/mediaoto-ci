@@ -1,7 +1,7 @@
 <?php
- 
+
 namespace App\Controllers;
- 
+
 use \Firebase\JWT\JWT;
 use Spatie\Image\Image;
 
@@ -10,11 +10,12 @@ use CodeIgniter\Files\File;
 use Spatie\Image\Manipulations;
 use CodeIgniter\API\ResponseTrait;
 use App\Controllers\BaseController;
- 
+use Exception;
+
 class User extends BaseController
 {
     use ResponseTrait;
-     
+
     public function index()
     {
         $users = new UserModel;
@@ -24,10 +25,11 @@ class User extends BaseController
 
     }
 
-    public function getUserInfo(){
+    public function getUserInfo()
+    {
 
         //return $this->respond("OK", 200);
-        
+
         $userid = $this->request->getVar('userid');
         $version = $this->request->getVar('version');
         $fcmtoken = $this->request->getVar('fcmtoken');
@@ -38,41 +40,41 @@ class User extends BaseController
 
         $db = db_connect();
 
-       
+
         //$userid = 25;
-        $sql = "SELECT * from users WHERE id='" .$userid."' LIMIT 1";
+        $sql = "SELECT * from users WHERE id='" . $userid . "' LIMIT 1";
         $query = $db->query($sql);
         $return = $query->getResultArray();
 
         $data = [];
         $x = 0;
-        foreach($return as $rows){
+        foreach ($return as $rows) {
 
-            if($rows['quota'] == 0){
+            if ($rows['quota'] == 0) {
                 $rows['quota'] = "0";
             }
             $data[$x]['id'] = $rows['id'];
-            $data[$x]['nama'] = trim( ucwords($rows['nama']));
+            $data[$x]['nama'] = trim(ucwords($rows['nama']));
             $data[$x]['email'] = $rows['email'];
-            $data[$x]['provider'] = $rows['provider']; 
+            $data[$x]['provider'] = $rows['provider'];
             $data[$x]['phone'] = $rows['phone'];
             $data[$x]['quota'] =  $rows['quota']; // $rows['phone'];
-            $data[$x]['alamat'] = $rows['alamat']; 
-            $data[$x]['lokasi'] = $rows['lokasi']; 
-            $data[$x]['ktp'] = $rows['ktp']; 
-            $data[$x]['npwp'] = $rows['npwp']; 
-            $data[$x]['image'] = $rows['image']; 
-            $data[$x]['brand'] = $rows['brand']; 
+            $data[$x]['alamat'] = $rows['alamat'];
+            $data[$x]['lokasi'] = $rows['lokasi'];
+            $data[$x]['ktp'] = $rows['ktp'];
+            $data[$x]['npwp'] = $rows['npwp'];
+            $data[$x]['image'] = $rows['image'];
+            $data[$x]['brand'] = $rows['brand'];
 
-            
-            $data[$x]['fcmtoken'] = $rows['fcmtoken']; 
+
+            $data[$x]['fcmtoken'] = $rows['fcmtoken'];
 
             $data[$x]['register'] =  $rows['created_at'];
 
 
             switch ($rows['acctype']) {
                 case 2:
-                    $data[$x]['acctype'] =  'SILVER';    
+                    $data[$x]['acctype'] =  'SILVER';
                     break;
                 case 3:
                     $data[$x]['acctype'] =  'GOLD';
@@ -81,53 +83,55 @@ class User extends BaseController
                     $data[$x]['acctype'] =  'DIAMOND';
                     break;
                 default:
-                $data[$x]['acctype'] =  'BRONZE';
+                    $data[$x]['acctype'] =  'BRONZE';
             }
 
 
             // Save to APpInfo
             $tanggal = date("Y-m-d H:i:s");
 
-            if($version == 'Unknown'){
+            if ($version == 'Unknown') {
                 $sql = "INSERT INTO appinfo (`userid`, `fcmtoken`,`updated_at`) 
-                VALUES ('".$userid."','".$fcmtoken."','".$tanggal."')
-                ON DUPLICATE KEY UPDATE  `fcmtoken`='".$fcmtoken."', updated_at='".$tanggal."'";
+                VALUES ('" . $userid . "','" . $fcmtoken . "','" . $tanggal . "')
+                ON DUPLICATE KEY UPDATE  `fcmtoken`='" . $fcmtoken . "', updated_at='" . $tanggal . "'";
                 $query = $db->query($sql);
             } else {
                 $sql = "INSERT INTO appinfo (`userid`, `version`,`fcmtoken`,`updated_at`) 
-                        VALUES ('".$userid."','".$version."','".$fcmtoken."','".$tanggal."')
-                ON DUPLICATE KEY UPDATE `version`='".$version."', `fcmtoken`='".$fcmtoken."', updated_at='".$tanggal."'";
+                        VALUES ('" . $userid . "','" . $version . "','" . $fcmtoken . "','" . $tanggal . "')
+                ON DUPLICATE KEY UPDATE `version`='" . $version . "', `fcmtoken`='" . $fcmtoken . "', updated_at='" . $tanggal . "'";
                 $query = $db->query($sql);
             }
 
 
 
-        $key = getenv('JWT_SECRET');
-        $iat = time(); // current timestamp value
-        $exp = $iat + 36000;
+            $key = getenv('JWT_SECRET');
+            $iat = time(); // current timestamp value
+            $exp = $iat + 36000;
 
-        $payload = array(
-            "iss" => "mediaoto",
-            "aud" => "mobile",
-            "sub" => "api",
-            "iat" => $iat, //Time the JWT issued at
-            "exp" => $exp, // Expiration time of token
-            "email" =>$rows['email'],
-        );
+            $payload = array(
+                "iss" => "mediaoto",
+                "aud" => "mobile",
+                "sub" => "api",
+                "iat" => $iat, //Time the JWT issued at
+                "exp" => $exp, // Expiration time of token
+                "email" => $rows['email'],
+            );
 
-        $token = JWT::encode($payload, $key, 'HS256');
-        $data[$x]['token'] = $token; 
+            $token = JWT::encode($payload, $key, 'HS256');
+            $data[$x]['token'] = $token;
 
             $x++;
-
         }
-        array_walk_recursive($data,function(&$item){$item=strval($item);});
+        array_walk_recursive($data, function (&$item) {
+            $item = strval($item);
+        });
         $response = json_encode($data);
         return $this->respond($response, 200);
     }
 
 
-    public function updateImage(){
+    public function updateImage()
+    {
 
 
         $userid = trim($this->request->getVar('userid', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -137,28 +141,40 @@ class User extends BaseController
 
         $file = $this->request->getFile('file');
 
-        if (! $file->isValid()) {
+        if (!$file->isValid()) {
             return $this->respond(['error' => 'Update Faled'], 401);
         };
 
 
+       
+
+
         $newName = $file->getRandomName();
-        if($file->move('/DATA/mediaoto/public_html/images', $newName)){
+
+        $imagePath = FCPATH . "../images";
+       
+
+
+       // if ($file->move('/DATA/mediaoto/public_html/images', $newName)) {
+            if ($file->move($imagePath, $newName)) {
+
+                // Convert Image
+                $convert = $this->getThumbnail($newName);
+                if($convert){
+                    $imageArr = explode('.', $newName);
+                    $newName = $imageArr[0] . ".webp";
+                }
+
             $db = db_connect();
-            $sql = "UPDATE `users` SET `nama`='".$nama."', `phone`='".$phone."', `alamat`='".$alamat."', `image` = '".$newName."' WHERE `users`.`id` = '".$userid."';";
+            $sql = "UPDATE `users` SET `nama`='" . $nama . "', `phone`='" . $phone . "', `alamat`='" . $alamat . "', `image` = '" . $newName . "' WHERE `users`.`id` = '" . $userid . "';";
             $query = $db->query($sql);
             $db->close();
             // remove old filename
-            $oldfile = '/DATA/mediaoto/public_html/images/'.basename(trim($this->request->getVar('oldfilename')));
+            $oldfile = '/DATA/mediaoto/public_html/images/' . basename(trim($this->request->getVar('oldfilename')));
             //delete_files($path);
-            if(file_exists($oldfile)){
+            if (file_exists($oldfile)) {
                 unlink($oldfile);
             }
-
-            // image Optimizer
-            //$image = Image::load(string $pathToImage);
-
-
 
             return $this->respond(['message' => 'Update Successfully'], 200);
         } else {
@@ -166,15 +182,16 @@ class User extends BaseController
         }
     }
 
-    public function updateUserInfo(){
+    public function updateUserInfo()
+    {
         $userid = trim($this->request->getVar('userid', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $nama = trim($this->request->getVar('nama', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $phone = trim($this->request->getVar('phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
         $alamat = trim($this->request->getVar('alamat', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
         $db = db_connect();
-        $sql = "UPDATE `users` SET `nama`='".$nama."', `phone`='".$phone."', `alamat`='".$alamat."' WHERE `users`.`id` = '".$userid."';";
-           if($db->query($sql)){
+        $sql = "UPDATE `users` SET `nama`='" . $nama . "', `phone`='" . $phone . "', `alamat`='" . $alamat . "' WHERE `users`.`id` = '" . $userid . "';";
+        if ($db->query($sql)) {
             $db->close();
             return $this->respond(['message' => 'Update Successfully'], 200);
         } else {
@@ -191,18 +208,18 @@ class User extends BaseController
         $oldPassword  = $this->request->getVar('oldpassword');
         //$oldPassword  = password_hash(trim($this->request->getVar('oldpassword')), PASSWORD_DEFAULT);
         $newPassword  = password_hash(trim($this->request->getVar('newpassword')), PASSWORD_DEFAULT);
-        
+
         $user = $userModel->where('id', $userid)->first();
         $pwd_verify = password_verify($oldPassword, $user['password']);
 
         $db = db_connect();
 
-        if($pwd_verify){
-            $sql = "UPDATE `users` SET password = '".$newPassword."' WHERE `users`.`id` = '".$userid."';";
-            if($db->query($sql)){
+        if ($pwd_verify) {
+            $sql = "UPDATE `users` SET password = '" . $newPassword . "' WHERE `users`.`id` = '" . $userid . "';";
+            if ($db->query($sql)) {
                 return $this->respond(['message' => 'Update Successfully'], 200);
             } else {
-                return $this->respond(['error' => 'Update Faled'], 401);    
+                return $this->respond(['error' => 'Update Faled'], 401);
             }
         } else {
             return $this->respond(['error' => 'Update Faled'], 401);
@@ -210,30 +227,30 @@ class User extends BaseController
     }
 
 
-    function usertest(){
+    public function getThumbnail($imageFile)
+    {
 
-        $imagePath = FCPATH."../images/" ;
-        $imageFile = "1706267974_4325a91552b917c3aa55.jpg";
-        $imageArr = explode('.',$imageFile);
+        $imagePath = FCPATH . "../images/";
+        //$imageFile = "1706267974_4325a91552b917c3aa55.jpg";
+        $imageArr = explode('.', $imageFile);
         $imageLocation = $imagePath . $imageFile;
-        if(file_exists($imageLocation)){
-            echo "Image Exist";
-            // Do Conversion
+        try {
 
-            $image = Image::load($imageLocation)
+
+            if (file_exists($imageLocation)) {
+                //echo "Image Exist";
+                // Do Conversion
+
+                $image = Image::load($imageLocation)
                     ->width(100)
                     ->format(Manipulations::FORMAT_WEBP);
-
-            echo "saving";
-            $image->save($imagePath.$imageArr[0].".webp");
-
-
-
-
-
-        } else {
-            echo "Image Not Exist";
+                $image->save($imagePath . $imageArr[0] . ".webp");
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
         }
-        
     }
 }
