@@ -214,7 +214,7 @@ class User extends BaseController
         echo "<br />" . PATHINFO_ALL;
         echo "<br />" . SYSTEMPATH;
         echo "<br />" . PATHINFO_BASENAME;
-        echo "<br />" . PUBLICPATH;
+        //echo "<br />" . PUBLICPATH;
         
     }
 }
