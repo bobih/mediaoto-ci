@@ -36,6 +36,10 @@ $routes->group("/", function ($routes) {
     $routes->post("updateinfo", "User::updateUserInfo");
 
 
+    // Test Debug
+    $routes->post("usertest", "User::usertest");
+
+
 
     $routes->post("summary", "Prospect::getSummary");
     $routes->post("list", "Prospect::getList");

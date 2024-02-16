@@ -153,6 +153,11 @@ class User extends BaseController
                 unlink($oldfile);
             }
 
+            // image Optimizer
+            //$image = Image::load(string $pathToImage);
+
+
+
             return $this->respond(['message' => 'Update Successfully'], 200);
         } else {
             return $this->respond(['error' => 'Update Faled'], 401);
@@ -200,5 +205,10 @@ class User extends BaseController
         } else {
             return $this->respond(['error' => 'Update Faled'], 401);
         }
+    }
+
+
+    function usertest(){
+       echo base_url();
     }
 }
