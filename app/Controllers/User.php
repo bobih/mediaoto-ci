@@ -67,15 +67,18 @@ class User extends BaseController
             // Check if image Webp
             //$data[$x]['image'] = $rows['image'];
             $imageFile = $data[$x]['image'];
-            $imageArr = explode(".",$imageFile);
-            if(!$imageArr[1]=='webp'){
-                // if not webp
-                $convert = $this->getThumbnail($imageFile);
-                if($convert == true){
-                    $imageFile = $imageArr[0].".webp";
-                    // Update Database
+            
+            if (!$imageFile == '') {
+                $imageArr = explode(".", $imageFile);
+                if (!$imageArr[1] == 'webp') {
+                    // if not webp
+                    $convert = $this->getThumbnail($imageFile);
+                    if ($convert == true) {
+                        $imageFile = $imageArr[0] . ".webp";
+                        // Update Database
                         $sql = "UPDATE `users` SET `image` = '" . $imageFile . "' WHERE `users`.`id` = '" . $userid . "';";
                         $query = $db->query($sql);
+                    }
                 }
             }
             $data[$x]['image'] = $imageFile;
@@ -159,15 +162,15 @@ class User extends BaseController
 
         $newName = $file->getRandomName();
         $imagePath = FCPATH . "../images";
-       // if ($file->move('/DATA/mediaoto/public_html/images', $newName)) {
-            if ($file->move($imagePath, $newName)) {
+        // if ($file->move('/DATA/mediaoto/public_html/images', $newName)) {
+        if ($file->move($imagePath, $newName)) {
 
-                // Convert Image
-                $convert = $this->getThumbnail($newName);
-                if($convert == true){
-                    $imageArr = explode('.', $newName);
-                    $newName = $imageArr[0] . ".webp";
-                }
+            // Convert Image
+            $convert = $this->getThumbnail($newName);
+            if ($convert == true) {
+                $imageArr = explode('.', $newName);
+                $newName = $imageArr[0] . ".webp";
+            }
 
             $db = db_connect();
             $sql = "UPDATE `users` SET `nama`='" . $nama . "', `phone`='" . $phone . "', `alamat`='" . $alamat . "', `image` = '" . $newName . "' WHERE `users`.`id` = '" . $userid . "';";
