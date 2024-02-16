@@ -222,8 +222,10 @@ class User extends BaseController
 
             $image = Image::load($imageLocation)
                     ->width(100)
-                    ->format(Manipulations::FORMAT_WEBP)
-                    ->save($imageArr[0]."webp");
+                    ->format(Manipulations::FORMAT_WEBP);
+
+            echo "saving";
+            $image->save($imagePath.$imageArr[0]."webp");
 
 
 
