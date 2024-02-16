@@ -2,12 +2,14 @@
  
 namespace App\Controllers;
  
-use App\Controllers\BaseController;
-use CodeIgniter\API\ResponseTrait;
+use \Firebase\JWT\JWT;
+use Spatie\Image\Image;
 
 use App\Models\UserModel;
 use CodeIgniter\Files\File;
-use \Firebase\JWT\JWT;
+use Spatie\Image\Manipulations;
+use CodeIgniter\API\ResponseTrait;
+use App\Controllers\BaseController;
  
 class User extends BaseController
 {
@@ -209,10 +211,24 @@ class User extends BaseController
 
 
     function usertest(){
+
         $imagePath = FCPATH."../images/" ;
         $imageFile = "1706267974_4325a91552b917c3aa55.jpg";
-        if(file_exists($imagePath . $imageFile)){
+        $imageArr = explode('.',$imageFile);
+        $imageLocation = $imagePath . $imageFile;
+        if(file_exists($imageLocation)){
             echo "Image Exist";
+            // Do Conversion
+
+            $image = Image::load($imageLocation)
+                    ->width(100)
+                    ->format(Manipulations::FORMAT_WEBP)
+                    ->save($imageArr[0]."webp");
+
+
+
+
+
         } else {
             echo "Image Not Exist";
         }
