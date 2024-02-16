@@ -209,6 +209,6 @@ class User extends BaseController
 
 
     function usertest(){
-       echo base_url();
+        echo FCPATH;
     }
 }
