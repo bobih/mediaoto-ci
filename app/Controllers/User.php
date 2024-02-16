@@ -209,12 +209,13 @@ class User extends BaseController
 
 
     function usertest(){
-        echo FCPATH."../" ;
-        echo "<br />" . APPPATH;
-        echo "<br />" . PATHINFO_ALL;
-        echo "<br />" . SYSTEMPATH;
-        echo "<br />" . PATHINFO_BASENAME;
-        //echo "<br />" . PUBLICPATH;
+        $imagePath = FCPATH."../images/" ;
+        $imageFile = "1706267974_4325a91552b917c3aa55.jpg";
+        if(file_exists($imagePath . $imageFile)){
+            echo "Image Exist";
+        } else {
+            echo "Image Not Exist";
+        }
         
     }
 }
