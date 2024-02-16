@@ -63,12 +63,24 @@ class User extends BaseController
             $data[$x]['lokasi'] = $rows['lokasi'];
             $data[$x]['ktp'] = $rows['ktp'];
             $data[$x]['npwp'] = $rows['npwp'];
-            $data[$x]['image'] = $rows['image'];
+
+            // Check if image Webp
+            //$data[$x]['image'] = $rows['image'];
+            $imageFile = $data[$x]['image'];
+            $imageArr = explode(".",$imageFile);
+            if(!$imageArr[1]=='webp'){
+                // if not webp
+                $convert = $this->getThumbnail($imageFile);
+                if($convert == true){
+                    $imageFile = $imageArr[0].".webp";
+                    // Update Database
+                        $sql = "UPDATE `users` SET `image` = '" . $imageFile . "' WHERE `users`.`id` = '" . $userid . "';";
+                        $query = $db->query($sql);
+                }
+            }
+            $data[$x]['image'] = $imageFile;
             $data[$x]['brand'] = $rows['brand'];
-
-
             $data[$x]['fcmtoken'] = $rows['fcmtoken'];
-
             $data[$x]['register'] =  $rows['created_at'];
 
 
