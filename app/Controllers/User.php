@@ -210,5 +210,8 @@ class User extends BaseController
 
     function usertest(){
         echo FCPATH;
+        echo "<br />" . APPPATH;
+        echo "<br />" . PATHINFO_ALL;
+        echo "<br />" . SYSTEMPATH;
     }
 }
