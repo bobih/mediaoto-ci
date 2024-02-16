@@ -145,22 +145,14 @@ class User extends BaseController
             return $this->respond(['error' => 'Update Faled'], 401);
         };
 
-
-       
-
-
         $newName = $file->getRandomName();
-
         $imagePath = FCPATH . "../images";
-       
-
-
        // if ($file->move('/DATA/mediaoto/public_html/images', $newName)) {
             if ($file->move($imagePath, $newName)) {
 
                 // Convert Image
                 $convert = $this->getThumbnail($newName);
-                if($convert){
+                if($convert == true){
                     $imageArr = explode('.', $newName);
                     $newName = $imageArr[0] . ".webp";
                 }
@@ -231,16 +223,10 @@ class User extends BaseController
     {
 
         $imagePath = FCPATH . "../images/";
-        //$imageFile = "1706267974_4325a91552b917c3aa55.jpg";
         $imageArr = explode('.', $imageFile);
         $imageLocation = $imagePath . $imageFile;
         try {
-
-
             if (file_exists($imageLocation)) {
-                //echo "Image Exist";
-                // Do Conversion
-
                 $image = Image::load($imageLocation)
                     ->width(100)
                     ->format(Manipulations::FORMAT_WEBP);
