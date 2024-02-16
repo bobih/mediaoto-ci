@@ -65,11 +65,14 @@ class User extends BaseController
             $data[$x]['npwp'] = $rows['npwp'];
 
             // Check if image Webp
-            $imageFile =  $rows['image'];
+            //$data[$x]['image'] = $rows['image'];
+            $imageFile = $data[$x]['image'];
+            
             if (!$imageFile == '') {
                 $imageArr = explode(".", $imageFile);
                 if ($imageArr[1] != 'webp') {
                     // if not webp
+                    exit("OK");
                     $convert = $this->getThumbnail($imageFile);
                     if ($convert == true) {
                         $imageFile = $imageArr[0] . ".webp";
