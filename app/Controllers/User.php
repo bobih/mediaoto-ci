@@ -225,7 +225,7 @@ class User extends BaseController
                     ->format(Manipulations::FORMAT_WEBP);
 
             echo "saving";
-            $image->save($imagePath.$imageArr[0]."webp");
+            $image->save($imagePath.$imageArr[0].".webp");
 
 
 
